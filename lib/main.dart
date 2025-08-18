@@ -11,10 +11,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     Usuario u = Usuario(
-      codigo: 1,
-      login: "Emerson123",
-      senha: "SenhaMuitoForte",
-      nome: "Emerson"
+      1,
+      "123",
+      "Emerson123",
+      "Emerson"
     );
     return MaterialApp(
       home: Scaffold(
