@@ -1,5 +1,4 @@
 import 'database_helper.dart';
-import '../usuario.dart';
 
 class UsuarioDAO{
   static Future<bool> autenticar(String login, String senha) async{
