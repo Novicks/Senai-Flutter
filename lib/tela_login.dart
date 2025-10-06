@@ -13,8 +13,8 @@ class TelaLogin extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(title: const Text("Tela de login")),
-      body: Padding(padding: const EdgeInsets.all(24.0),
+      appBar: AppBar(title: const Text("Login")),
+      body: Padding(padding: const EdgeInsets.all(60.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -29,17 +29,45 @@ class TelaLogin extends StatelessWidget{
               controller: senhaController,
             ),
             const SizedBox(height: 20),
-            ElevatedButton(onPressed: () async{
-              final sucesso = await UsuarioDAO.autenticar(usuarioController.text, senhaController.text);
-              if (sucesso){
-                await Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => telaHome()));
-              }else{
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Usuario ou senha digitado errado"))
-                );
-              }
-            }, child: const Text('Logar'))
+            Column(
+              children: [
+                ElevatedButton(onPressed: () async{
+                  final sucesso = await UsuarioDAO.autenticar(usuarioController.text, senhaController.text);
+                  if (sucesso){
+                    await Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => telaHome()));
+                  }else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Usuario ou senha digitado errado"))
+                    );
+                  }
+                }, child: Row(
+                  spacing: 15,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Logar')
+                  ],
+                ),
+                )
+              ],
+            ),
+            SizedBox(height: 20),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child:
+                    RichText(text: TextSpan(children: <TextSpan>[
+                      TextSpan(text: 'Não tem conta?    ', style: TextStyle(color: Colors.black, fontSize: 15)),
+                      TextSpan(text: 'Cadastrar-se!', style: TextStyle(color: Colors.indigoAccent, fontSize: 15)
+                      )
+                    ]))
+                )
+
+              ],
+            )
           ],
         ),
       )
