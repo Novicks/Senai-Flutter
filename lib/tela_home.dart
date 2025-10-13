@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projetoflutter/cad_restaurante.dart';
 import 'package:projetoflutter/db/restaurante_dao.dart';
 import 'package:projetoflutter/restaurante.dart';
 import 'package:projetoflutter/tela_edit_restaurante.dart';
+import 'package:projetoflutter/usuario.dart';
 //StatelessWidget e estatico então quando compila o codigo vc não pode cria dinanismo nessa tela
 //Ao usar StateFul devemos criar um construtor para a tela
 class telaHome extends StatefulWidget {
@@ -12,16 +14,15 @@ class telaHome extends StatefulWidget {
   State<telaHome> createState() => telaHomeState();
 }
 
-
 // cria construtor dinamico class => arrow fuction para nova class Construtor, adicionar class nova class exteds State <classe original>
 class telaHomeState extends State<telaHome> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     carregaRestaurantes();
   }
   List<Restaurante> restaurantes = [];
+
   Future<void> carregaRestaurantes()async{
     final lista = await RestauranteDAO.listarTodos();
     setState((){
@@ -35,13 +36,12 @@ class telaHomeState extends State<telaHome> {
       floatingActionButton: FloatingActionButton(onPressed: (){
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => telaCadRest()));
-      }, child: Icon(Icons.add), backgroundColor: Colors.greenAccent,),
+      }, child: Icon(Icons.add), backgroundColor: Colors.white54,),
       appBar: AppBar(
           title: const Text("Lista de Restaurantes"),
           actions: [
             IconButton(onPressed: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => telaCadRest()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => telaCadRest()));
             }, icon: Icon(Icons.add))
           ],
       ),
@@ -63,7 +63,7 @@ class telaHomeState extends State<telaHome> {
                           MaterialPageRoute(builder: (context) => telaEditRest()));
                       }, icon: Icon(Icons.edit), color: Colors.indigoAccent),
                       IconButton(onPressed: (){
-                        AlertDialog(
+                        /*AlertDialog(
                           title: Text("Confirmar ação"),
                           content: Text("Deseja realmente excluir?"),
                           actions: <Widget>[
@@ -74,7 +74,7 @@ class telaHomeState extends State<telaHome> {
 
                             }, child: Text('nao'))
                           ],
-                        );
+                        );*/
                       }, icon: Icon(Icons.delete), color: Colors.redAccent)
                     ],
                   ),

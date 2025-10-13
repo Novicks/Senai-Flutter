@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    /*Usuario u = Usuario(
+    /*Usuario u = Usuario( jeito padrão para criação de classe sdk )
       1,
       "123",
       "Emerson123",

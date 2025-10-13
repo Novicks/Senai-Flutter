@@ -5,7 +5,9 @@ class Usuario{
   String? _senha;
 
   // Construtor
-  Usuario(int? codigo, String? senha, String? login, String? nome){
+  Usuario({
+    int? codigo,
+    String? senha, String? login, String? nome}){
     _codigo = codigo;
     _senha = senha;
     _login = login;
