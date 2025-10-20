@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projetoflutter/db/restaurante_dao.dart';
 import 'package:projetoflutter/db/tipo_dao.dart';
+
 import 'package:projetoflutter/tipo.dart';
 
 class telaCadRest extends StatefulWidget {
@@ -115,6 +116,7 @@ class telaCadRestState extends State<telaCadRest>{
                       duration: Duration(seconds: 5),
                     )
                   );
+                  Navigator.pop(context);
             }, child: Row(
               spacing: 15,
               mainAxisAlignment: MainAxisAlignment.center,

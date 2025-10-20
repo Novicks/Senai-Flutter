@@ -33,15 +33,24 @@ class telaHomeState extends State<telaHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => telaCadRest()));
+      floatingActionButton: FloatingActionButton(onPressed: ()async{
+       final t = await Navigator.push(context, MaterialPageRoute(builder: (context) => telaCadRest()));
+       if (t==false||t==null) {
+         setState(() {
+           carregaRestaurantes();
+         });
+       }
       }, child: Icon(Icons.add), backgroundColor: Colors.white54,),
       appBar: AppBar(
           title: const Text("Lista de Restaurantes"),
           actions: [
-            IconButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => telaCadRest()));
+            IconButton(onPressed: () async{
+              final t = await Navigator.push(context, MaterialPageRoute(builder: (context) => telaCadRest()));
+              if (t==false||t==null){
+                setState(() {
+                  carregaRestaurantes();
+                });
+              }
             }, icon: Icon(Icons.add))
           ],
       ),
@@ -58,24 +67,37 @@ class telaHomeState extends State<telaHome> {
                   trailing: Row( // Trailling coloca icones ou botoes um do lado do outro
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      IconButton(onPressed: (){
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => telaEditRest()));
+                      IconButton(onPressed: () async{
+                        telaEditRest.rest = await RestauranteDAO.listar(r.codigo);
+                        final t = await Navigator.push(context, MaterialPageRoute(builder: (context) => telaEditRest()));
+                        if(t== false|| t==null){
+                          setState(() {
+                            carregaRestaurantes();
+                          });
+                        }
                       }, icon: Icon(Icons.edit), color: Colors.indigoAccent),
-                      IconButton(onPressed: (){
-                        /*AlertDialog(
-                          title: Text("Confirmar ação"),
-                          content: Text("Deseja realmente excluir?"),
+                      IconButton(onPressed: () {
+                        showDialog(context: context, builder: (BuildContext) =>
+                        AlertDialog(
+                          title: const Text("Confirmar ação"),
+                          content: Text('Deseja excluir o restaurante ${r.nome}?'),
                           actions: <Widget>[
                             TextButton(onPressed: (){
-                              // código excluir registro
+                              RestauranteDAO.deletarRest(r);
+                              setState(() {
+                                carregaRestaurantes();
+                                Navigator.pop(context, 'Sim');
+                              });
                             }, child: Text('Sim')),
                             TextButton(onPressed: (){
-
-                            }, child: Text('nao'))
+                              Navigator.pop(context, 'Não');
+                            }, child: Text('Não'))
                           ],
-                        );*/
-                      }, icon: Icon(Icons.delete), color: Colors.redAccent)
+                        ));
+                          /*RestauranteDAO.deletarRest(r);
+                          carregaRestaurantes();*/
+                        }
+                      , icon: Icon(Icons.delete), color: Colors.redAccent)
                     ],
                   ),
                 ),
